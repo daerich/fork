@@ -1,36 +1,36 @@
 FORK(1)                     General Commands Manual                    FORK(1)
 
-NNAAMMEE
+NAME
        fork - fork(2) for your shell
 
-SSYYNNOOPPSSIISS
-       ffoorrkk _[_-_q_d_] _[_P_R_O_G_R_A_M_] _[_A_R_G_S_._._]
+SYNOPSIS
+       fork [-qd] [PROGRAM] [ARGS..]
 
-DDEESSCCRRIIPPTTIIOONN
-       ffoorrkk runs a programm after a fork(2), optionally detaching from the
+DESCRIPTION
+       fork runs a programm after a fork(2), optionally detaching from the
        shell's session.  If specified standard I/O streams will be closed as
        well.  Its primary use is as a more committed subshell('&') for
        standalone programs.
 
-OOPPTTIIOONNSS
-              --qq Quiet the programs output, effectively closing its I/O
+OPTIONS
+              -q Quiet the programs output, effectively closing its I/O
               streams.
 
-              --dd Detach from controlling terminal, completely "daemonizing"
+              -d Detach from controlling terminal, completely "daemonizing"
               the to be started program.
 
-EEXXIITT SSTTAATTUUSS
+EXIT STATUS
        Returns 0 on sucess, 1 otherwise.
 
-NNOOTTEESS
+NOTES
        Spawning a process in the same session as the controlling shell might
-       cause problems with it when receiving SSIIGGTTTTNN . Please consult your
+       cause problems with it when receiving SIGTTN . Please consult your
        shell's manual for further information.
 
-SSEEEE AALLSSOO
+SEE ALSO
        fork(2), setsid(2), execvp(2), setsid(1)
 
-CCOOLLOOPPHHOONN
+COLOPHON
        This man page has been written by DaErich - the programs author.
 
        See the authors web page.  <https://nixkernel.cc>
