@@ -36,7 +36,7 @@ static size_t argscnt(char ** args)
 
 static void usage(void)
 {
-	printf("fork [-q] PRGRAM [ARGS...]\n");
+	printf("fork [-qd] PRGRAM [ARGS...]\n");
 	exit(1);
 }
 
@@ -53,16 +53,20 @@ int main(int argc,char ** argv)
 	pid_t pid = 0;
 	int ch = 0;
 	int quiet = 0;
+	int detach = 0;
 	char * argopt = NULL;
 	char ** args = NULL;
 	int oopt = 1;
 
 	if (argc < 2)
 		usage();
-	while ((ch = getopt(argc, argv, "q")) != -1) {
+	while ((ch = getopt(argc, argv, "qd")) != -1) {
 		switch(ch) {
 		case 'q':
 			quiet = 1;
+			break;
+		case 'd':
+			detach = 1;
 			break;
 		case '?':
 		default:
@@ -77,7 +81,7 @@ int main(int argc,char ** argv)
 	if (argc > 1) {
 		int len = 0;	
 		argv += optind + 1;
-* 		len = argscnt(argv) + 2; /* NULL-PTR + PROGNAME($0)*/
+		len = argscnt(argv) + 2; /* NULL-PTR + PROGNAME($0)*/
 		args = xmalloc(len * sizeof(char *));
 		memset(args, 0, len);
 		args[0] = argopt;
@@ -92,11 +96,13 @@ int main(int argc,char ** argv)
 		err("fork");
 	if (pid != 0)
 		_exit(0);
-* 	/* child */
+	/* child */
 	if (quiet) {
 		fclose(stdout);
 		fclose(stderr);
 	}
+	if (detach && setsid() == -1)
+		err("setsid");
 	if (execvp(argopt, args) == -1)
 		err("exec");
 	return 0;

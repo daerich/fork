@@ -1,0 +1,35 @@
+.TH FORK 1 2022-01-25 GNU/LINUX "General Commands Manual"
+.SH NAME
+fork \- fork(2) for your shell
+.SH SYNOPSIS
+.B fork
+.I [-qd] [PROGRAM] [ARGS..]
+.SH DESCRIPTION
+.B fork
+runs a programm after a fork(2), optionally detaching from the shell's session.
+If specified standard I/O streams will be closed as well.
+Its primary use is as a more committed subshell('&') for standalone programs.
+.SH OPTIONS
+.IP
+.B -q
+Quiet the programs output, effectively closing its I/O streams.
+
+.B -d
+Detach from controlling terminal, completely "daemonizing" the to be started
+program.
+.SH EXIT STATUS
+Returns 0 on sucess, 1 otherwise.
+.SH NOTES
+Spawning a process in the same session as the controlling shell might cause
+problems with it when receiving
+.B SIGTTN
+\&. Please consult your shell's manual for further information.
+.SH SEE ALSO
+fork(2), setsid(2), execvp(2), setsid(1)
+.SH COLOPHON
+This man page has been written by DaErich - the programs author.
+
+See the authors
+.UR https://nixkernel.cc
+web page.
+.UE
