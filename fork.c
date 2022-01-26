@@ -57,6 +57,7 @@ int main(int argc,char ** argv)
 	char * argopt = NULL;
 	char ** args = NULL;
 	int oopt = 1;
+	int len = 0;
 
 	if (argc < 2)
 		usage();
@@ -78,20 +79,17 @@ int main(int argc,char ** argv)
 	if (argc == 0)
 		usage();
 	argopt = *(argv + oopt);
-	if (argc > 1) {
-		int len = 0;	
-		argv += optind + 1;
-		len = argscnt(argv) + 2; /* NULL-PTR + PROGNAME($0)*/
-		args = xmalloc(len * sizeof(char *));
-		memset(args, 0, len);
-		args[0] = argopt;
-		for (int i = 1; i < len; i++) {
-			if (argv == NULL)
-				break;
-			args[i] = *argv;
-			argv++;
-		}
-	} 
+	argv += optind + 1;
+	len = argscnt(argv) + 2; /* NULL-PTR + PROGNAME($0)*/
+	args = xmalloc(len * sizeof(char *));
+	memset(args, 0, len);
+	args[0] = argopt;
+	for (int i = 1; i < len; i++) {
+		if (argv == NULL)
+			break;
+		args[i] = *argv;
+		argv++;
+	}
 	if ((pid = fork()) == -1)
 		err("fork");
 	if (pid != 0)
