@@ -103,6 +103,6 @@ int main(int argc,char ** argv)
 		err("setsid");
 	if (execvp(argopt, args) == -1)
 		err("exec");
-	return 0;
+	return 1;
 }
 

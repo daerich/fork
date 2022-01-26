@@ -1,4 +1,4 @@
-.TH FORK 1 2022-01-25 GNU/LINUX "General Commands Manual"
+.TH FORK 1 2022-01-26 GNU/LINUX "General Commands Manual"
 .SH NAME
 fork \- fork(2) for your shell
 .SH SYNOPSIS
@@ -18,7 +18,7 @@ Quiet the programs output, effectively closing its I/O streams.
 Detach from controlling terminal, completely "daemonizing" the to be started
 program.
 .SH EXIT STATUS
-Returns 0 on sucess, 1 otherwise.
+Does not return on sucess, 1 otherwise.
 .SH NOTES
 Spawning a process in the same session as the controlling shell might cause
 problems with it when receiving
@@ -29,7 +29,7 @@ fork(2), setsid(2), execvp(2), setsid(1)
 .SH COLOPHON
 This man page has been written by DaErich - the programs author.
 
-See the authors
+See the author's
 .UR https://nixkernel.cc
 web page.
 .UE
