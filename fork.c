@@ -79,7 +79,7 @@ int main(int argc,char ** argv)
 	if (argc == 0)
 		usage();
 	argopt = *(argv + oopt);
-	argv += optind + 1;
+	argv += oopt + 1;
 	len = argscnt(argv) + 2; /* NULL-PTR + PROGNAME($0)*/
 	args = xmalloc(len * sizeof(char *));
 	memset(args, 0, len);
