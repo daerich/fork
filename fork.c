@@ -59,7 +59,7 @@ int main(int argc,char ** argv)
 	int oopt = 1;
 	int len = 0;
 #ifdef __OpenBSD__
-	if (pledge("stdio exec proc" , NULL) == -1)
+	if (pledge("stdio exec proc", NULL) == -1)
 		err("pledge");
 #endif
 	if (argc < 2)
