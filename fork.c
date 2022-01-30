@@ -43,7 +43,7 @@ static void usage(void)
 static void * xmalloc(size_t size)
 {
 	void * res = NULL;
-	if ((res = malloc(size))== NULL &&  size != 0)
+	if ((res = malloc(size)) == NULL &&  size != 0)
 		err("malloc");
 	return res;
 }
@@ -54,9 +54,8 @@ int main(int argc,char ** argv)
 	int ch = 0;
 	int quiet = 0;
 	int detach = 0;
-	char * argopt = NULL;
+	const char * argopt = NULL;
 	char ** args = NULL;
-	int oopt = 1;
 	int len = 0;
 #ifdef __OpenBSD__
 	if (pledge("stdio exec proc", NULL) == -1)
@@ -77,19 +76,15 @@ int main(int argc,char ** argv)
 			usage();
 		}
 	}
-	oopt = optind;
 	argc -= optind;
+	argv += optind;
 	if (argc == 0)
 		usage();
-	argopt = *(argv + oopt);
-	argv += oopt + 1;
-	len = argscnt(argv) + 2; /* NULL-PTR + PROGNAME($0)*/
+	argopt = *argv;
+	len = argscnt(argv) + 1; /* + NULL-PTR */
 	args = xmalloc(len * sizeof(char *));
 	memset(args, 0, len);
-	args[0] = argopt;
-	for (int i = 1; i < len; i++) {
-		if (argv == NULL)
-			break;
+	for (int i = 0; i < len; i++) {
 		args[i] = *argv;
 		argv++;
 	}
