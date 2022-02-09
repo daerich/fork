@@ -97,6 +97,10 @@ int main(int argc,char ** argv)
 		fclose(stdout);
 		fclose(stderr);
 	}
+#ifdef __OpenBSD__
+	if (pledge("exec proc", NULL) == -1)
+		err("pledge");
+#endif
 	if (detach && setsid() == -1)
 		err("setsid");
 	if (execvp(argopt, args) == -1)
